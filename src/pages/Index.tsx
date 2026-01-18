@@ -4,6 +4,7 @@ import HowItWorks from "@/components/HowItWorks";
 import { Button } from "@/components/ui/button";
 import { aree } from "@/data/aree";
 import heroBackground from "@/assets/hero-background.jpg";
+import { ArrowDown } from "lucide-react";
 
 const Index = () => {
   const scrollToAreas = () => {
@@ -14,7 +15,7 @@ const Index = () => {
     <Layout>
       {/* Hero Section with Background */}
       <section 
-        className="relative py-20 md:py-28 overflow-hidden"
+        className="relative py-24 md:py-32 overflow-hidden"
         style={{
           backgroundImage: `url(${heroBackground})`,
           backgroundSize: 'cover',
@@ -26,41 +27,53 @@ const Index = () => {
         
         <div className="civic-container relative z-10">
           <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] tracking-tight animate-fade-in">
               Orientati nelle regole,
               <br />
               <span className="text-primary">passo dopo passo</span>
             </h2>
-            <p className="text-muted-foreground mt-6 text-lg md:text-xl leading-relaxed">
+            <p className="text-muted-foreground mt-6 text-lg md:text-xl leading-relaxed animate-fade-in opacity-0" style={{ animationDelay: '0.1s' }}>
               Percorsi guidati per affrontare situazioni concrete: 
               documenti, lavoro, casa, rischi.
             </p>
             <Button 
               variant="civic" 
               size="lg" 
-              className="mt-8 shadow-lg"
+              className="mt-8 shadow-lg animate-fade-in opacity-0 group"
+              style={{ animationDelay: '0.2s' }}
               onClick={scrollToAreas}
             >
               Inizia dalla tua situazione
+              <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </Button>
           </div>
         </div>
       </section>
 
       {/* Areas Section */}
-      <section id="aree" className="py-16 border-t border-border">
+      <section id="aree" className="py-16 md:py-20">
         <div className="civic-container">
-          <h2 className="text-xl font-semibold text-foreground mb-8">
-            Aree tematiche
-          </h2>
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+              Aree tematiche
+            </h2>
+            <p className="text-muted-foreground mt-2">
+              Scegli l'area che riguarda la tua situazione
+            </p>
+          </div>
           <div className="grid gap-4 md:grid-cols-2">
-            {aree.map((area) => (
-              <AreaCard
-                key={area.slug}
-                slug={area.slug}
-                title={area.title}
-                description={area.description}
-              />
+            {aree.map((area, index) => (
+              <div 
+                key={area.slug} 
+                className="animate-fade-in-up opacity-0"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <AreaCard
+                  slug={area.slug}
+                  title={area.title}
+                  description={area.description}
+                />
+              </div>
             ))}
           </div>
         </div>
