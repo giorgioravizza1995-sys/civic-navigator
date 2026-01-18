@@ -3,6 +3,7 @@ import AreaCard from "@/components/AreaCard";
 import HowItWorks from "@/components/HowItWorks";
 import { Button } from "@/components/ui/button";
 import { aree } from "@/data/aree";
+import heroBackground from "@/assets/hero-background.jpg";
 
 const Index = () => {
   const scrollToAreas = () => {
@@ -11,20 +12,33 @@ const Index = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-12 md:py-16">
-        <div className="civic-container">
-          <div className="max-w-xl">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground leading-tight">
-              Orientati nelle regole, passo dopo passo
+      {/* Hero Section with Background */}
+      <section 
+        className="relative py-20 md:py-28 overflow-hidden"
+        style={{
+          backgroundImage: `url(${heroBackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/85 to-background/70" />
+        
+        <div className="civic-container relative z-10">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight tracking-tight">
+              Orientati nelle regole,
+              <br />
+              <span className="text-primary">passo dopo passo</span>
             </h2>
-            <p className="text-muted-foreground mt-4 text-base">
-              Percorsi guidati per affrontare situazioni concrete: documenti, lavoro, casa, rischi.
+            <p className="text-muted-foreground mt-6 text-lg md:text-xl leading-relaxed">
+              Percorsi guidati per affrontare situazioni concrete: 
+              documenti, lavoro, casa, rischi.
             </p>
             <Button 
               variant="civic" 
               size="lg" 
-              className="mt-6"
+              className="mt-8 shadow-lg"
               onClick={scrollToAreas}
             >
               Inizia dalla tua situazione
@@ -34,12 +48,12 @@ const Index = () => {
       </section>
 
       {/* Areas Section */}
-      <section id="aree" className="py-12 border-t border-border">
+      <section id="aree" className="py-16 border-t border-border">
         <div className="civic-container">
-          <h2 className="text-lg font-semibold text-foreground mb-6">
+          <h2 className="text-xl font-semibold text-foreground mb-8">
             Aree tematiche
           </h2>
-          <div className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2">
             {aree.map((area) => (
               <AreaCard
                 key={area.slug}
