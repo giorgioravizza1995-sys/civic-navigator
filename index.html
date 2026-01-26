@@ -4,604 +4,500 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sportello Digitale Civico</title>
-  <meta name="description" content="Percorsi guidati per orientarsi tra servizi pubblici e digitale." />
+  <meta name="description" content="Percorsi guidati per orientarsi tra servizi pubblici e digitale. Un punto unico e chiaro per capire cosa fare e dove andare." />
 
   <style>
     :root{
       --bg:#F6F4EF;
-      --surface: rgba(255,255,255,.88);
+      --surface:#FFFFFF;
       --text:#0B1F33;
       --muted:#3E4C59;
       --primary:#1F3A5F;
+      --accent:#0B5CAB;
       --line: rgba(11,31,51,.12);
-      --soft: rgba(31,58,95,.07);
+      --soft: rgba(31,58,95,.08);
       --shadow: 0 10px 28px rgba(11,31,51,.10);
-      --radius: 18px;
-      --focus: rgba(31,106,225,.25);
-      --danger: #B42318;
-      --warnbg: #FFF7E6;
-      --warnline: #F2C97D;
+      --radius:18px;
+
+      --chip:#F2F4F7;
+      --chipText:#1F2A37;
+
+      --alertBg: rgba(180,35,24,.06);
+      --alertLine: rgba(180,35,24,.35);
+      --alertText:#B42318;
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
     }
-    a{color:inherit}
 
-    /* Top */
     .container{
-      max-width:1200px;
-      margin:0 auto;
-      padding:36px 24px 0;
-    }
-    h1{
-      margin:0 0 16px;
-      font-size:48px;
-      letter-spacing:.04em;
-      color:var(--primary);
-      line-height:1.05;
-    }
-    p{
-      margin:6px 0;
-      font-size:20px;
-      color:var(--muted);
-      max-width:820px;
-      line-height:1.5;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 18px 0;
     }
 
-    .cta-row{
-      margin-top:16px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+    /* HERO */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: end;
     }
+
+    h1{
+      margin:0 0 12px;
+      font-size: 44px;
+      letter-spacing: .06em;
+      color: var(--primary);
+      line-height: 1.05;
+    }
+
+    .lead{
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.55;
+      max-width: 720px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 18px;
+    }
+
     .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      color: var(--text);
+      font-weight: 800;
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration:none;
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.85);
-      text-decoration:none;
-      font-weight:700;
-      color:var(--text);
+      cursor:pointer;
       transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      user-select:none;
     }
-    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 22px rgba(11,31,51,.10); background:rgba(255,255,255,.95)}
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(11,31,51,.08);
+      background: #fff;
+    }
     .btn.primary{
-      background: linear-gradient(135deg, #0B5CAB, #2E90FA);
-      border:none;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), #2E90FA);
       color:#fff;
+      box-shadow: 0 14px 34px rgba(11,92,171,.24);
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, #084B8E, #1D7FE6);
     }
 
-    /* Hero image */
+    /* HERO IMAGE */
     .hero-image{
-      margin-top:24px;
       width:100%;
-      height:420px;
+      border-radius: 22px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      min-height: 170px;
       background:
-        linear-gradient(rgba(255,255,255,.25), rgba(255,255,255,.25)),
-        url("hero.png") center/cover no-repeat;
-      filter:saturate(.7) contrast(.95);
+        linear-gradient(rgba(255,255,255,.10), rgba(255,255,255,.10)),
+        url("hero.png") center / cover no-repeat,
+        linear-gradient(135deg, rgba(11,31,51,.70), rgba(31,58,95,.45));
     }
 
-    /* Sections */
+    /* SECTION */
     .section{
-      max-width:1200px;
-      margin:0 auto;
-      padding:34px 24px 56px;
-    }
-    .section-title{
-      margin:0 0 10px;
-      font-size:26px;
-      color:var(--primary);
-    }
-    .section-intro{
-      margin:0 0 18px;
-      font-size:18px;
-      color:var(--muted);
-      max-width:820px;
+      margin-top: 28px;
+      padding: 0 0 50px;
     }
 
-    /* Updates */
-    .updates{
+    .section h2{
+      margin: 0 0 8px;
+      font-size: 26px;
+      color: var(--text);
+    }
+    .section .subtitle{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 780px;
+    }
+
+    /* SEARCH ROW */
+    .tools{
       display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:14px;
-      margin-top:16px;
-    }
-    .update-card{
-      grid-column: span 4;
-      background: var(--surface);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding:14px;
-      box-shadow: 0 8px 20px rgba(11,31,51,.06);
-    }
-    .update-top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-      margin-bottom:8px;
-    }
-    .badge{
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(11,31,51,.05);
-      color: rgba(11,31,51,.75);
-      font-weight:800;
-      white-space:nowrap;
-    }
-    .badge.warn{
-      border-color: rgba(242,201,125,.9);
-      background: rgba(242,201,125,.28);
-      color:#6B4E10;
-    }
-    .update-card h3{
-      margin:0 0 6px;
-      font-size:16px;
-      color:var(--text);
-    }
-    .update-card p{
-      margin:0;
-      font-size:14px;
-      color:var(--muted);
-      line-height:1.45;
-      max-width:none;
+      grid-template-columns: 1fr 220px auto;
+      gap: 10px;
+      align-items:center;
+      margin-bottom: 14px;
     }
 
-    /* Themes controls */
-    .controls{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      margin:18px 0 14px;
-    }
     .search{
-      flex: 1 1 280px;
       display:flex;
       align-items:center;
-      gap:10px;
-      background: rgba(255,255,255,.85);
+      gap: 10px;
       border:1px solid var(--line);
+      background: rgba(255,255,255,.92);
       border-radius: 14px;
       padding: 10px 12px;
-      box-shadow: 0 6px 16px rgba(11,31,51,.05);
     }
     .search input{
       border:none;
       outline:none;
+      background: transparent;
       width:100%;
-      background:transparent;
-      font-size:15px;
-      color:var(--text);
+      font-size: 14px;
+      color: var(--text);
     }
-    .select{
+    .search .icon{
+      width: 26px; height: 26px;
+      display:grid; place-items:center;
+      border-radius: 10px;
+      background: var(--soft);
+      color: var(--primary);
+      font-weight: 900;
       flex: 0 0 auto;
-      background: rgba(255,255,255,.85);
-      border:1px solid var(--line);
-      border-radius: 14px;
-      padding: 10px 12px;
-      font-size:15px;
-      color:var(--text);
-      outline:none;
-    }
-    .meta{
-      font-size:13px;
-      color: rgba(62,76,89,.95);
-      margin-left:auto;
     }
 
-    /* Themes grid */
-    .themes-grid{
-      display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:14px;
-    }
-    .theme-box{
-      grid-column: span 4;
-      background: rgba(255,255,255,.82);
+    select{
       border:1px solid var(--line);
-      border-radius: 18px;
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      cursor:pointer;
-      box-shadow: 0 8px 20px rgba(11,31,51,.06);
-      transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
-      outline: none;
-    }
-    .theme-box:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 12px 26px rgba(11,31,51,.10);
       background: rgba(255,255,255,.92);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-weight: 800;
+      color: var(--text);
+      outline:none;
     }
-    .theme-top{
+
+    .count{
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
+      text-align:right;
+      white-space:nowrap;
+    }
+
+    /* GRID CARDS */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .card{
+      grid-column: span 4;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 10px 22px rgba(11,31,51,.06);
       display:flex;
-      gap:12px;
+      gap: 12px;
       align-items:flex-start;
     }
-    .icon{
-      width:42px;height:42px;
-      border-radius:14px;
+
+    .card-link{
+      text-decoration:none;
+      color: inherit;
+      display:flex;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+    .card-link:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(11,31,51,.10);
+      background: #fff;
+    }
+
+    .card .ic{
+      width: 46px; height: 46px;
+      border-radius: 14px;
       border:1px solid var(--line);
       background: var(--soft);
       display:grid;
       place-items:center;
-      font-size:18px;
-      flex:0 0 auto;
+      font-weight: 900;
+      color: var(--primary);
+      flex: 0 0 auto;
     }
-    .theme-box strong{font-size:16px; color:var(--text); display:block; margin-bottom:4px}
-    .theme-box span{font-size:13px; color:var(--muted); line-height:1.45}
-    .tags{
+
+    .card h3{
+      margin: 0;
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.25;
+    }
+    .card p{
+      margin: 6px 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .chips{
       display:flex;
-      gap:8px;
+      gap: 8px;
       flex-wrap:wrap;
-      margin-top:2px;
     }
-    .tag{
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
       border:1px solid var(--line);
-      background: rgba(11,31,51,.05);
-      color: rgba(11,31,51,.72);
-      font-weight:800;
+      background: var(--chip);
+      color: var(--chipText);
+      font-size: 12px;
+      font-weight: 900;
     }
-    .tag.fraud{
-      border-color: rgba(180,35,24,.35);
-      background: rgba(180,35,24,.08);
-      color: var(--danger);
-    }
-
-    .theme-box.hidden{display:none}
-
-    /* Modal */
-    .modal{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      background: rgba(11,31,51,.55);
-      z-index:50;
-    }
-    .modal.open{display:flex}
-    .panel{
-      width:min(720px, 100%);
-      background: #fff;
-      border-radius: 20px;
-      border:1px solid rgba(11,31,51,.12);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      transform: translateY(6px);
-      opacity: 0;
-      transition: transform .14s ease, opacity .14s ease;
-    }
-    .modal.open .panel{transform:translateY(0); opacity:1}
-    .panel-head{
-      padding:16px 16px 12px;
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-      background: rgba(31,58,95,.05);
-      border-bottom: 1px solid rgba(11,31,51,.10);
-    }
-    .panel-head h3{margin:0; font-size:18px; color:var(--text)}
-    .close{
-      border:1px solid rgba(11,31,51,.14);
-      background: rgba(255,255,255,.9);
-      border-radius: 12px;
-      padding:8px 10px;
-      cursor:pointer;
-      font-weight:800;
-    }
-    .panel-body{padding:14px 16px 16px}
-    .panel-body p{margin:0 0 10px; font-size:14px; color:var(--muted); max-width:none}
-    .panel-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-    .panel-actions a{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(11,31,51,.12);
-      background: rgba(255,255,255,.95);
-      text-decoration:none;
-      font-weight:800;
-      color:var(--text);
-    }
-    .panel-actions a.primary{
-      background: linear-gradient(135deg, #0B5CAB, #2E90FA);
-      color:#fff;
-      border:none;
+    .chip.alert{
+      background: var(--alertBg);
+      border-color: var(--alertLine);
+      color: var(--alertText);
     }
 
-    /* Footer */
     footer{
-      max-width:1200px;
-      margin:0 auto;
-      padding:18px 24px 34px;
-      border-top:1px solid var(--line);
+      margin-top: 22px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--line);
       color: rgba(62,76,89,.95);
-      font-size:13px;
+      font-size: 13px;
       display:flex;
-      flex-wrap:wrap;
-      gap:10px;
       justify-content:space-between;
-      align-items:center;
+      gap: 12px;
+      flex-wrap:wrap;
     }
 
     /* Responsive */
-    @media (max-width:980px){
-      .update-card{grid-column:span 6}
-      .theme-box{grid-column:span 6}
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .hero-image{ min-height: 220px; }
+      .tools{ grid-template-columns: 1fr; }
+      .count{ text-align:left; }
+      .card{ grid-column: span 6; }
     }
-    @media (max-width:768px){
-      .container{padding:28px 18px 0}
-      .section{padding:26px 18px 44px}
-      h1{font-size:34px}
-      p{font-size:18px}
-      .hero-image{height:260px}
-      .update-card,.theme-box{grid-column:span 12}
-      .meta{margin-left:0}
-.card-link{
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.card-link:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(11,31,51,.12);
-}
-
+    @media (max-width: 620px){
+      h1{ font-size: 34px; }
+      .card{ grid-column: span 12; }
+    }
   </style>
 </head>
 
 <body>
-  <main class="container" id="top">
-    <h1>SPORTELLO DIGITALE CIVICO</h1>
-    <p>Percorsi guidati per orientarsi tra servizi pubblici e digitale.</p>
-    <p>Un punto unico e chiaro per capire cosa fare e dove andare</p>
+  <main class="container">
+    <section class="hero" aria-label="Hero">
+      <div>
+        <h1>SPORTELLO DIGITALE CIVICO</h1>
+        <p class="lead">Percorsi guidati per orientarsi tra servizi pubblici e digitale.</p>
+        <p class="lead">Un punto unico e chiaro per capire cosa fare e dove andare</p>
 
-    <div class="cta-row">
-      <a class="btn primary" href="#aree" aria-label="Vai alle aree tematiche">🧭 Inizia da un’area</a>
-<a class="btn secondary" href="aree/frodi-truffe.html">
-  🛡️ Allerta frodi
-</a>
+        <div class="hero-actions">
+          <a class="btn primary" href="#aree">🧭 Inizia da un’area</a>
+          <a class="btn" href="aree/frodi-truffe.html">🛡️ Allerta frodi</a>
+          <a class="btn" href="#aggiornamenti">📰 Aggiornamenti</a>
+        </div>
+      </div>
 
-      <a class="btn" href="#aggiornamenti" aria-label="Vai agli aggiornamenti">📰 Aggiornamenti</a>
-    </div>
+      <div class="hero-image" aria-label="Immagine di copertina"></div>
+    </section>
+
+    <section class="section" id="aree" aria-label="Aree tematiche">
+      <h2>Aree tematiche</h2>
+      <p class="subtitle">
+        Cerca un argomento o esplora le categorie: ogni area verrà popolata con articoli, guide pratiche e testi di orientamento.
+      </p>
+
+      <div class="tools">
+        <div class="search">
+          <div class="icon">🔎</div>
+          <input id="q" type="search" placeholder="Cerca: SPID, residenza, INPS, scuola, phishing..." aria-label="Cerca" />
+        </div>
+
+        <select id="cat" aria-label="Filtro categoria">
+          <option value="tutte">Tutte le categorie</option>
+          <option value="identita">Identità</option>
+          <option value="anagrafe">Anagrafe</option>
+          <option value="lavoro">Lavoro</option>
+          <option value="famiglia">Famiglia</option>
+          <option value="sicurezza">Sicurezza</option>
+          <option value="pa">Pubblica amministrazione</option>
+        </select>
+
+        <div class="count"><span id="shown">6</span> su <span id="total">6</span></div>
+      </div>
+
+      <div class="grid" id="cards">
+        <!-- 1 -->
+        <a class="card card-link"
+           href="#"
+           data-title="Identità digitale"
+           data-category="identita"
+           data-tags="spid cie accesso servizi online"
+           data-desc="SPID, CIE, accesso ai servizi online">
+          <div class="ic">ID</div>
+          <div>
+            <h3>Identità digitale</h3>
+            <p>SPID, CIE, accesso ai servizi online</p>
+            <div class="chips">
+              <span class="chip">In arrivo</span>
+              <span class="chip">SPID • CIE</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 2 -->
+        <a class="card card-link"
+           href="#"
+           data-title="Anagrafe e residenza"
+           data-category="anagrafe"
+           data-tags="residenza certificati anpr servizi comunali"
+           data-desc="Residenza, certificati, servizi comunali">
+          <div class="ic">🏠</div>
+          <div>
+            <h3>Anagrafe e residenza</h3>
+            <p>Residenza, certificati, servizi comunali</p>
+            <div class="chips">
+              <span class="chip">In arrivo</span>
+              <span class="chip">ANPR</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 3 -->
+        <a class="card card-link"
+           href="#"
+           data-title="Lavoro e previdenza"
+           data-category="lavoro"
+           data-tags="inps lavoro pensioni tutele"
+           data-desc="INPS, lavoro, pensioni, tutele">
+          <div class="ic">💼</div>
+          <div>
+            <h3>Lavoro e previdenza</h3>
+            <p>INPS, lavoro, pensioni, tutele</p>
+            <div class="chips">
+              <span class="chip">In arrivo</span>
+              <span class="chip">INPS</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 4 -->
+        <a class="card card-link"
+           href="#"
+           data-title="Famiglia e scuola"
+           data-category="famiglia"
+           data-tags="isee bonus istruzione scuola"
+           data-desc="ISEE, bonus, istruzione">
+          <div class="ic">👪</div>
+          <div>
+            <h3>Famiglia e scuola</h3>
+            <p>ISEE, bonus, istruzione</p>
+            <div class="chips">
+              <span class="chip">In arrivo</span>
+              <span class="chip">ISEE • Bonus</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 5 (FRODI) -->
+        <a class="card card-link"
+           href="aree/frodi-truffe.html"
+           data-title="Frodi e truffe"
+           data-category="sicurezza"
+           data-tags="phishing smishing vishing sms truffa operatore sicurezza"
+           data-desc="Phishing, SMS sospetti, finti operatori: segnali d’allarme e cosa fare subito.">
+          <div class="ic">💳</div>
+          <div>
+            <h3>Frodi e truffe</h3>
+            <p>Phishing, raggiri digitali, prevenzione</p>
+            <div class="chips">
+              <span class="chip alert">Allerte</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 6 -->
+        <a class="card card-link"
+           href="#"
+           data-title="Pubblica amministrazione"
+           data-category="pa"
+           data-tags="enti portali procedure"
+           data-desc="Enti, portali, procedure">
+          <div class="ic">🏛️</div>
+          <div>
+            <h3>Pubblica amministrazione</h3>
+            <p>Enti, portali, procedure</p>
+            <div class="chips">
+              <span class="chip">In arrivo</span>
+              <span class="chip">Portali</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="aggiornamenti" aria-label="Aggiornamenti">
+      <h2>Aggiornamenti</h2>
+      <p class="subtitle">Sezione in preparazione: comunicazioni, nuove guide e aggiornamenti del progetto.</p>
+    </section>
+
+    <footer>
+      <div>© 2026 Sportello Digitale Civico</div>
+      <div>Progetto indipendente — contenuti in aggiornamento</div>
+    </footer>
   </main>
 
-  <section class="hero-image" aria-label="Immagine di copertina"></section>
+  <script>
+    const q = document.getElementById('q');
+    const cat = document.getElementById('cat');
+    const cards = Array.from(document.querySelectorAll('#cards .card'));
+    const shown = document.getElementById('shown');
+    const total = document.getElementById('total');
 
-  <!-- Aggiornamenti (statici per ora, poi li aggiorni quando vuoi) -->
-  <section class="section" id="aggiornamenti">
-    <h2 class="section-title">Ultimi aggiornamenti</h2>
-    <p class="section-intro">Brevi note sullo stato del portale e nuovi contenuti. (Sezione pronta per diventare “articoli” più avanti.)</p>
+    total.textContent = String(cards.length);
 
-    <div class="updates">
-      <div class="update-card">
-        <div class="update-top">
-          <span class="badge">In corso</span>
-          <span class="badge">Home</span>
-        </div>
-        <h3>Homepage pubblicata</h3>
-        <p>Struttura iniziale online con aree tematiche e stile istituzionale moderno.</p>
-      </div>
+    function norm(s){ return (s || '').toLowerCase().trim(); }
 
-      <div class="update-card">
-        <div class="update-top">
-          <span class="badge warn">Attenzione</span>
-          <span class="badge">Frodi</span>
-        </div>
-        <h3>Sezione anti-truffe in preparazione</h3>
-        <p>Checklist rapida e indicazioni su phishing, SMS e finti operatori (in arrivo).</p>
-      </div>
+    function applyFilters(){
+      const query = norm(q.value);
+      const c = cat.value;
 
-      <div class="update-card">
-        <div class="update-top">
-          <span class="badge">Prossimo</span>
-          <span class="badge">Percorsi</span>
-        </div>
-        <h3>Percorsi guidati</h3>
-        <p>Prossimo step: trasformare le aree in percorsi a bivi con domande e passi operativi.</p>
-      </div>
-    </div>
-  </section>
+      let visible = 0;
 
-  <!-- Aree tematiche -->
-  <section class="section" id="aree">
-    <h2 class="section-title">Aree tematiche</h2>
-    <p class="section-intro">Cerca un argomento o esplora le categorie: ogni area verrà popolata con articoli, guide pratiche e testi di orientamento.</p>
+      cards.forEach(card => {
+        const title = norm(card.dataset.title);
+        const desc  = norm(card.dataset.desc);
+        const tags  = norm(card.dataset.tags);
+        const category = norm(card.dataset.category);
 
-    <div class="controls" aria-label="Controlli di ricerca e filtro">
-      <div class="search" role="search">
-        🔎 <input id="searchInput" type="search" placeholder="Cerca: SPID, residenza, INPS, scuola, phishing…" autocomplete="off" />
-      </div>
+        const matchQuery = !query || title.includes(query) || desc.includes(query) || tags.includes(query);
+        const matchCat = (c === 'tutte') || (category === c);
 
-      <select id="categorySelect" class="select" aria-label="Filtra per categoria">
-        <option value="tutte">Tutte le categorie</option>
-        <option value="servizi">Servizi digitali</option>
-        <option value="anagrafe">Anagrafe</option>
-        <option value="lavoro">Lavoro & previdenza</option>
-        <option value="famiglia">Famiglia</option>
-        <option value="sicurezza">Sicurezza</option>
-        <option value="pa">Pubblica amministrazione</option>
-      </select>
+        const ok = matchQuery && matchCat;
+        card.style.display = ok ? 'flex' : 'none';
+        if(ok) visible++;
+      });
 
-      <div class="meta" id="resultsMeta">6 aree</div>
-    </div>
+      shown.textContent = String(visible);
+    }
 
-    <div class="themes-grid" id="themesGrid">
-      <button class="theme-box" type="button"
-        data-title="Identità digitale"
-        data-category="servizi"
-        data-tags="spid cie accesso credenziali"
-        data-icon="🆔"
-        data-desc="SPID, CIE, accesso ai servizi online, recupero credenziali e problemi comuni."
-        data-status="In arrivo"
-      >
-        <div class="theme-top">
-          <div class="icon">🆔</div>
-          <div>
-            <strong>Identità digitale</strong>
-            <span>SPID, CIE, accesso ai servizi online</span>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">In arrivo</span>
-          <span class="tag">SPID • CIE</span>
-        </div>
-      </button>
-
-      <button class="theme-box" type="button"
-        data-title="Anagrafe e residenza"
-        data-category="anagrafe"
-        data-tags="residenza certificati anpr comune"
-        data-icon="🏠"
-        data-desc="Cambio residenza, certificati, appuntamenti e servizi comunali online."
-        data-status="In arrivo"
-      >
-        <div class="theme-top">
-          <div class="icon">🏠</div>
-          <div>
-            <strong>Anagrafe e residenza</strong>
-            <span>Residenza, certificati, servizi comunali</span>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">In arrivo</span>
-          <span class="tag">ANPR</span>
-        </div>
-      </button>
-
-      <button class="theme-box" type="button"
-        data-title="Lavoro e previdenza"
-        data-category="lavoro"
-        data-tags="inps lavoro pensione naspi contributi"
-        data-icon="💼"
-        data-desc="INPS, pratiche ricorrenti, documenti tipici e indicazioni operative."
-        data-status="In arrivo"
-      >
-        <div class="theme-top">
-          <div class="icon">💼</div>
-          <div>
-            <strong>Lavoro e previdenza</strong>
-            <span>INPS, lavoro, pensioni, tutele</span>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">In arrivo</span>
-          <span class="tag">INPS</span>
-        </div>
-      </button>
-
-      <button class="theme-box" type="button"
-        data-title="Famiglia e scuola"
-        data-category="famiglia"
-        data-tags="isee bonus scuola iscrizioni"
-        data-icon="👪"
-        data-desc="ISEE, bonus, iscrizioni e servizi territoriali: guida pratica e link utili."
-        data-status="In arrivo"
-      >
-        <div class="theme-top">
-          <div class="icon">👪</div>
-          <div>
-            <strong>Famiglia e scuola</strong>
-            <span>ISEE, bonus, istruzione</span>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">In arrivo</span>
-          <span class="tag">ISEE • Bonus</span>
-        </div>
-      </button>
-
-<a href="aree/frodi-truffe.html" class="card card-link">
-       <a class="STESSE_CLASSI_DELLE_ALTRE" href="aree/frodi-truffe.html">
-
-     </a>
-      >
-        <div class="theme-top">
-          <div class="icon">💳</div>
-          <div>
-            <strong>Frodi e truffe</strong>
-            <span>Phishing, raggiri digitali, prevenzione</span>
-          </div>
-        </div>
-<div class="tags">
-  <span class="tag">Allerte</span>
-</div>
-      </button>
-
-      <button class="theme-box" type="button"
-        data-title="Pubblica amministrazione"
-        data-category="pa"
-        data-tags="enti portali procedure modulistica"
-        data-icon="🏛️"
-        data-desc="Enti, portali, procedure e modulistica: orientamento e collegamenti utili."
-        data-status="In arrivo"
-      >
-        <div class="theme-top">
-          <div class="icon">🏛️</div>
-          <div>
-            <strong>Pubblica amministrazione</strong>
-            <span>Enti, portali, procedure</span>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">In arrivo</span>
-          <span class="tag">Portali</span>
-        </div>
-      </button>
-    </div>
-  </section>
-
-  <footer>
-    <div>© <span id="y"></span> Sportello Digitale Civico</div>
-    <div>Progetto indipendente — contenuti in aggiornamento</div>
-  </footer>
-
-  <!-- Modal dettagli area -->
-  <div class="modal" id="modal" aria-hidden="true">
-    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="panel-head">
-        <div>
-          <h3 id="modalTitle">Titolo</h3>
-          <div style="margin-top:6px; display:flex; gap:8px; flex-wrap:wrap;">
-            <span class="badge" id="modalStatus">In arrivo</span>
-            <span class="badge" id="modalCategory">Categoria</span>
-          </div>
-        </div>
-        <button class="close" id="modalClose" type="button" aria-label="Chiudi">✕</button>
-      </div>
-      <div class="panel-body">
-        <p id="modalDesc"></p>
-        <div class="panel-actions">
-          <a class="primary" href="#aree" id="modalPrimary" aria-label="Torna alle aree">🧭 Esplora altre aree</a>
-          <a href="#aggiornamenti" id="modalSecondary" aria-label="Vai agli aggiornamenti">📰 Aggiornamenti</a>
-        </div>
-        <p style="margin-top:12px; font-size:12px; color:rgba(62,76,89,.95);">
-          Suggerimento: quando creeremo le pagine dedicate, questo pulsante potrà portare a una URL tipo <strong>/aree/identita-digitale</strong>.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+    q.addEventListener('input', applyFilters);
+    cat.addEventListener('change', applyFilters);
+    applyFilters();
+  </script>
 </body>
 </html>
