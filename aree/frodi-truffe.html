@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frodi e truffe – Sportello Digitale Civico</title>
+  <meta name="description" content="Anti-truffe: riconoscere, evitare, reagire. Checklist rapida, tipologie più comuni e cosa fare subito." />
+
+  <style>
+    :root{
+      /* Coerente con la nuova homepage */
+      --bg:#F6F4EF;
+      --surface:#FFFFFF;
+      --text:#0B1F33;
+      --muted:#3E4C59;
+      --primary:#1F3A5F;
+      --accent:#0B5CAB;
+      --line: rgba(11,31,51,.12);
+      --soft: rgba(31,58,95,.08);
+      --shadow: 0 10px 28px rgba(11,31,51,.10);
+      --radius:18px;
+
+      /* Accenti pagina frodi (attenzione senza allarmismo) */
+      --warn-bg:#FFF7E6;
+      --warn-border:#F2C97D;
+      --warn-text:#6B4E10;
+
+      --danger-bg: rgba(180,35,24,.06);
+      --danger-line: rgba(180,35,24,.35);
+      --danger-text:#B42318;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a{ color: inherit; text-decoration:none; }
+    a:hover{ text-decoration:none; }
+
+    .container{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 26px 18px 56px;
+    }
+
+    /* Top bar */
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+    .back{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.92);
+      font-weight: 900;
+      color: var(--primary);
+      box-shadow: 0 8px 18px rgba(11,31,51,.06);
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border:1px solid var(--danger-line);
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* Hero */
+    .hero{
+      border:1px solid var(--line);
+      border-radius: 22px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(135deg, rgba(11,31,51,.86), rgba(31,58,95,.62)),
+        radial-gradient(1200px 600px at 10% 10%, rgba(46,144,250,.28), transparent 60%),
+        radial-gradient(800px 500px at 92% 15%, rgba(242,201,125,.22), transparent 60%);
+      color:#fff;
+      position:relative;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      opacity:.22;
+      pointer-events:none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='500'%3E%3Cdefs%3E%3Cpattern id='p' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 40h80' stroke='white' stroke-opacity='.16'/%3E%3Cpath d='M40 0v80' stroke='white' stroke-opacity='.10'/%3E%3Ccircle cx='40' cy='40' r='2' fill='white' fill-opacity='.25'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23p)'/%3E%3C/svg%3E");
+    }
+    .hero-inner{
+      position:relative;
+      padding: 22px 20px 18px;
+      z-index:1;
+    }
+    .hero h1{
+      margin: 8px 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing:.02em;
+    }
+    .hero p{
+      margin: 0;
+      max-width: 920px;
+      color: rgba(255,255,255,.88);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* Buttons (stile home) */
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+      align-items:center;
+    }
+    .btn{
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      font-weight: 900;
+      padding: 12px 14px;
+      border-radius: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.14);
+      box-shadow: 0 10px 22px rgba(11,31,51,.10);
+    }
+    .btn.primary{
+      border:none;
+      background: linear-gradient(135deg, var(--accent), #2E90FA);
+      box-shadow: 0 14px 34px rgba(11,92,171,.24);
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, #084B8E, #1D7FE6);
+    }
+
+    /* Warning strip */
+    .signal{
+      margin-top: 14px;
+      background: rgba(255,247,230,.12);
+      border:1px solid rgba(242,201,125,.35);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .signal .title{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight: 1000;
+      color: rgba(255,255,255,.92);
+      font-size: 12px;
+      letter-spacing:.04em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .signal p{
+      margin:0;
+      color: rgba(255,255,255,.90);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .signal strong{ color:#fff; }
+
+    /* Sections */
+    .section{
+      margin-top: 18px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 22px rgba(11,31,51,.06);
+      padding: 16px;
+    }
+    .section h2{
+      margin: 0 0 8px;
+      font-size: 20px;
+      color: var(--text);
+    }
+    .section p{
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* Layout helpers */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .card{
+      grid-column: span 6;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      padding: 14px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 16px;
+      color: var(--text);
+    }
+    .card ul{
+      margin:0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .full{ grid-column: span 12; }
+
+    /* Types tiles */
+    .types{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .type{
+      grid-column: span 4;
+      border:1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      padding: 14px;
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .type:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(11,31,51,.10);
+    }
+    .type .ic{
+      width: 46px; height: 46px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: var(--soft);
+      display:grid;
+      place-items:center;
+      font-weight: 1000;
+      color: var(--primary);
+      flex: 0 0 auto;
+    }
+    .type strong{
+      display:block;
+      margin: 0;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .type span{
+      display:block;
+      margin-top: 4px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    /* Details */
+    details{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      padding: 12px;
+    }
+    details summary{
+      cursor:pointer;
+      font-weight: 1000;
+      color: rgba(11,31,51,.92);
+      list-style:none;
+    }
+    details summary::-webkit-details-marker{ display:none; }
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .box{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(31,58,95,.05);
+      padding: 12px;
+    }
+    .box h4{
+      margin:0 0 8px;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .box ul{
+      margin:0;
+      padding-left:18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* Decision cards */
+    .choices{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .choice{
+      grid-column: span 4;
+      border:1px solid var(--line);
+      border-radius: 18px;
+      background:#fff;
+      padding: 14px;
+    }
+    .choice .mini{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size: 12px;
+      font-weight: 1000;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(11,31,51,.05);
+      color: rgba(11,31,51,.78);
+      margin-bottom: 10px;
+    }
+    .choice .mini.danger{
+      border-color: var(--danger-line);
+      background: var(--danger-bg);
+      color: var(--danger-text);
+    }
+    .choice h3{
+      margin:0 0 8px;
+      font-size: 16px;
+      color: var(--text);
+    }
+    .choice p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .choice a{
+      margin-top: 10px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      font-weight: 1000;
+      color: var(--primary);
+    }
+
+    /* Checklist */
+    .checklist{
+      border:1px solid var(--warn-border);
+      background: var(--warn-bg);
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .checklist h3{
+      margin:0 0 8px;
+      font-size: 16px;
+      color: var(--text);
+    }
+    .checklist ul{
+      margin:0;
+      padding-left: 18px;
+      color: rgba(11,31,51,.82);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: rgba(62,76,89,.95);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .type{ grid-column: span 6; }
+      .choice{ grid-column: span 6; }
+      .card{ grid-column: span 12; }
+      .two{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px){
+      .hero h1{ font-size: 28px; }
+      .type{ grid-column: span 12; }
+      .choice{ grid-column: span 12; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <div class="topbar">
+      <a class="back" href="../index.html">← Torna alla Home</a>
+      <span class="badge">🛡️ Frodi & truffe</span>
+    </div>
+
+    <section class="hero" aria-label="Hero frodi e truffe">
+      <div class="hero-inner">
+        <h1>Anti-truffe: riconoscere, evitare, reagire</h1>
+        <p>
+          Checklist rapida, tipologie più comuni e cosa fare subito. Un percorso chiaro per proteggere sia i tuoi dati
+          che i tuoi pagamenti, con parole semplici (phishing, smishing, vishing) e indicazioni pratiche.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="#tr-checklist">✅ Vai alla checklist</a>
+          <a class="btn" href="#tr-tipologie">🔎 Tipologie</a>
+          <a class="btn" href="#tr-percorsi">🧭 Cosa fare ora</a>
+        </div>
+
+        <div class="signal" role="note">
+          <div class="title">⚠️ Segnale rosso</div>
+          <p>
+            Se ti chiedono <strong>OTP</strong>, <strong>PIN</strong> o un bonifico “di sicurezza”, è quasi sempre una truffa.
+            Chiudi la chiamata e ricontatta la banca dal numero ufficiale.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dati & trend -->
+    <section class="section" id="tr-trend">
+      <h2>📊 Dati & trend sui pagamenti digitali</h2>
+      <p>
+        Nel periodo 2018–2022 il numero dei casi di frode è raddoppiato, con incremento anche delle somme sottratte.
+        Nel secondo semestre 2024, l’aumento dei bonifici istantanei è stato accompagnato da una crescita del tasso di frode.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <h3>Cosa sta cambiando</h3>
+          <ul>
+            <li>Operazioni a distanza e verso l’estero più esposte (online e transfrontaliere).</li>
+            <li>Su carte e ATM prevalgono spesso operazioni non autorizzate.</li>
+            <li>Sui bonifici è frequente la manipolazione del pagatore (social engineering).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Perché è importante</h3>
+          <p>
+            Il rischio non è solo “tecnico”: molte frodi funzionano perché inducono le persone a commettere errori
+            sotto pressione. Qui impari a riconoscere i segnali e a fermarti in tempo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tipologie -->
+    <section class="section" id="tr-tipologie">
+      <h2>🧩 Le truffe digitali più comuni</h2>
+      <p>Conoscere le modalità più diffuse è il primo passo per proteggersi.</p>
+
+      <div class="types" aria-label="Tipologie frodi">
+        <a class="type" href="#d-phishing">
+          <div class="ic">📧</div>
+          <div>
+            <strong>Email di phishing</strong>
+            <span>Messaggi che imitano banche, enti pubblici o aziende.</span>
+          </div>
+        </a>
+
+        <a class="type" href="#d-smishing">
+          <div class="ic">📱</div>
+          <div>
+            <strong>Smishing (SMS/WhatsApp)</strong>
+            <span>Avvisi falsi su pagamenti o spedizioni con link o numeri.</span>
+          </div>
+        </a>
+
+        <a class="type" href="#d-vishing">
+          <div class="ic">☎️</div>
+          <div>
+            <strong>Vishing (telefonate)</strong>
+            <span>Finti operatori che chiedono codici o operazioni “di verifica”.</span>
+          </div>
+        </a>
+
+        <a class="type" href="#d-spoofing">
+          <div class="ic">🧾</div>
+          <div>
+            <strong>Spoofing telefonico</strong>
+            <span>Il numero sembra autentico, ma è falsificato.</span>
+          </div>
+        </a>
+
+        <a class="type" href="#d-simswap">
+          <div class="ic">📲</div>
+          <div>
+            <strong>SIM Swap</strong>
+            <span>Furto della linea per intercettare messaggi e codici.</span>
+          </div>
+        </a>
+
+        <a class="type" href="#d-mitm">
+          <div class="ic">🌐</div>
+          <div>
+            <strong>MITM / MITB</strong>
+            <span>Intercettazioni tramite malware o reti non sicure.</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="grid" style="margin-top:12px;">
+        <details class="full" id="d-phishing">
+          <summary>📧 Email di phishing — come riconoscerle e cosa fare</summary>
+          <div class="two">
+            <div class="box">
+              <h4>Segnali di allarme</h4>
+              <ul>
+                <li>Richieste urgenti di verifica</li>
+                <li>Link o allegati sospetti</li>
+                <li>Richiesta di password, PIN o codici OTP</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h4>Cosa fare</h4>
+              <ul>
+                <li>Non cliccare sui link</li>
+                <li>Accedi al sito solo dai canali ufficiali</li>
+                <li>Segnala il messaggio ed eliminalo</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="full" id="d-smishing">
+          <summary>📱 Smishing — come riconoscerlo e cosa fare</summary>
+          <div class="two">
+            <div class="box">
+              <h4>Segnali di allarme</h4>
+              <ul>
+                <li>Toni allarmistici</li>
+                <li>Link abbreviati</li>
+                <li>Mittente sconosciuto o generico</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h4>Cosa fare</h4>
+              <ul>
+                <li>Non cliccare sul link</li>
+                <li>Non rispondere al messaggio</li>
+                <li>Cancella e segnala</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="full" id="d-vishing">
+          <summary>☎️ Vishing — telefonate fraudolente</summary>
+          <div class="two">
+            <div class="box">
+              <h4>Ricorda</h4>
+              <ul>
+                <li>Nessuna banca o ente chiede codici al telefono</li>
+                <li>Nessuno chiede bonifici “per sicurezza”</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h4>Cosa fare</h4>
+              <ul>
+                <li>Interrompi la chiamata</li>
+                <li>Ricontatta l’ente solo tramite canali ufficiali</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="full" id="d-spoofing">
+          <summary>🧾 Spoofing — quando il numero sembra vero</summary>
+          <div class="two">
+            <div class="box">
+              <h4>Che cos’è</h4>
+              <ul>
+                <li>Il numero chiamante o il mittente appare identico a quello ufficiale</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h4>Cosa fare</h4>
+              <ul>
+                <li>Non fidarti del numero visualizzato</li>
+                <li>Chiama tu il numero ufficiale dell’ente</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="full" id="d-simswap">
+          <summary>📲 SIM Swap — furto della linea telefonica</summary>
+          <div class="two">
+            <div class="box">
+              <h4>Che cosa succede</h4>
+              <ul>
+                <li>I truffatori duplicano la SIM per intercettare messaggi e codici</li>
+                <li>Il telefono può improvvisamente non avere più linea</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h4>Cosa fare subito</h4>
+              <ul>
+                <li>Contatta l’operatore telefonico</li>
+                <li>Avvisa la banca o il fornitore di servizi</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details class="full" id="d-mitm">
+          <summary>🌐 MITM / MITB — intercettazione delle comunicazioni</summary>
+          <div class="two">
+            <div class="box">
+              <h4>Rischi tipici</h4>
+              <ul>
+                <li>Wi-Fi pubblici</li>
+                <li>Dispositivi non aggiornati</li>
+                <li>Malware</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h4>Cosa fare</h4>
+              <ul>
+                <li>Mantieni dispositivi e app aggiornati</li>
+                <li>Evita Wi-Fi pubblici per operazioni sensibili</li>
+                <li>Usa solo reti sicure</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Social engineering -->
+    <section class="section" id="tr-social">
+      <h2>🎭 Social engineering: il meccanismo dietro le truffe</h2>
+      <p>
+        Tutte le frodi digitali hanno un elemento in comune: la manipolazione psicologica per indurre la vittima ad agire senza riflettere.
+        I truffatori fanno leva su urgenza, autorità, paura e fiducia.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Le leve più comuni</h3>
+          <ul>
+            <li><strong>Urgenza</strong>: “agisci subito”, “ultimo avviso”</li>
+            <li><strong>Autorità</strong>: finti operatori, enti, forze dell’ordine</li>
+            <li><strong>Paura</strong>: conto bloccato, pagamento sospetto</li>
+            <li><strong>Fiducia</strong>: numeri e mittenti falsificati</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Regola fondamentale</h3>
+          <p>
+            👉 Se qualcuno ti mette fretta, <strong>fermàti</strong>. Verifica sempre prima di agire.
+            In caso di dubbio: non eseguire operazioni, contatta l’ente o la banca dai canali ufficiali e segnala l’accaduto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Percorsi guidati -->
+    <section class="section" id="tr-percorsi">
+      <h2>🧭 Hai ricevuto un messaggio o una chiamata sospetta?</h2>
+      <p>Segui il percorso in base alla situazione.</p>
+
+      <div class="choices">
+        <div class="choice">
+          <div class="mini">📩 Messaggio</div>
+          <h3>Ho ricevuto un messaggio</h3>
+          <p>Email, SMS o WhatsApp con link o richieste urgenti: può essere phishing o smishing.</p>
+          <a href="#tr-checklist">✅ Cosa fare subito</a>
+        </div>
+
+        <div class="choice">
+          <div class="mini">📞 Telefonata</div>
+          <h3>Mi hanno chiamato “dalla banca”</h3>
+          <p>Richieste di codici, OTP o pagamenti: le banche e gli enti non chiedono mai codici al telefono.</p>
+          <a href="#d-vishing">☎️ Vai al vishing</a>
+        </div>
+
+        <div class="choice">
+          <div class="mini danger">💸 Azione già fatta</div>
+          <h3>Ho già fatto un’azione</h3>
+          <p>Hai cliccato un link, inserito credenziali o autorizzato un pagamento: intervieni subito per limitare i danni.</p>
+          <a href="#tr-vittima">🧾 Recupero & passi</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="section" id="tr-checklist">
+      <h2>✅ Checklist immediata: cosa fare subito</h2>
+
+      <div class="checklist">
+        <h3>⚠️ Agisci il prima possibile</h3>
+        <ul>
+          <li>Non cliccare più su link e non aprire allegati sospetti</li>
+          <li>Non comunicare mai PIN, password, OTP o codici</li>
+          <li>Chiudi la comunicazione e ricontatta solo canali ufficiali</li>
+          <li>Blocca carte e operatività online se noti movimenti sospetti</li>
+        </ul>
+      </div>
+
+      <div class="grid" style="margin-top:12px;">
+        <div class="card full" id="tr-vittima">
+          <h3>Se sei vittima di una truffa: come recuperare</h3>
+          <ul>
+            <li>Contatta subito la banca e richiedi il blocco e la contestazione delle operazioni</li>
+            <li>Cambia tutte le password (email, home banking, servizi collegati)</li>
+            <li>Metti in sicurezza i dispositivi (aggiornamenti, antivirus, scansione malware)</li>
+            <li>Conserva le prove: messaggi, email, numeri, screenshot</li>
+            <li>Presenta denuncia alla Polizia Postale</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Normativa -->
+    <section class="section" id="tr-normativa">
+      <h2>📘 Approfondimento: rimborsi e normativa</h2>
+      <p>
+        La normativa europea tutela i clienti in caso di operazioni non autorizzate, ma i rimborsi dipendono anche dal comportamento tenuto dall’utente
+        (ad esempio, se sono stati comunicati codici o autorizzate operazioni).
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Qui trovi una spiegazione semplice su</h3>
+          <ul>
+            <li>quando è previsto il rimborso</li>
+            <li>cosa significa “autenticazione forte” (SCA)</li>
+            <li>quali sono i diritti del cliente</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Nota</h3>
+          <p>
+            Questa sezione è pronta per essere arricchita con esempi pratici e casi tipici (carte, bonifici istantanei, frodi via social engineering).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 Sportello Digitale Civico</div>
+      <div>Sezione “Frodi e truffe” — contenuti in aggiornamento</div>
+    </footer>
+
+  </main>
+</body>
+</html>
